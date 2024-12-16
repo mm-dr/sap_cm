@@ -1,0 +1,31 @@
+{
+  "Key": "MZ1639388135866",
+  "Name": "PRF_Database",
+  "Type": "Database Profile",
+  "Version": 1,
+  "Folder": "SAP_T1A",
+  "Owner": "mzadmin",
+  "Is Valid": true,
+  "Access Groups -read -write -execute": [
+    "Administrator",
+    "Administrator",
+    "Administrator"
+  ],
+  "Data": {
+    "dbDriverClassName": "com.digitalroute.wfc.db.postgresql.PostgreSQLDatabaseDriver",
+    "dbName": "pguser",
+    "genericConnection": false,
+    "hostName": "127.0.0.1",
+    "password": "DR-4-043FE5A55E42E3F73A10DE90B8C1B638",
+    "port": 5432,
+    "type": 7,
+    "userName": "pguser",
+    "$Type": "dr.DRDBProfileExtRef",
+    "$Version": 1.0
+  },
+  "documentation": "",
+  "Is Dry Run": false,
+  "$Type": "dr.Configuration",
+  "$Version": 10.1,
+  "Comment": "Imported from /media/sf_vmShared/SAP_Template_2022-03-09.zip"
+}

@@ -1,0 +1,36 @@
+{
+  "Key": "MZ1639127987769",
+  "Name": "PRF_Interworkflow",
+  "Type": "Inter Workflow Profile",
+  "Version": 1,
+  "Folder": "SAP_T1A",
+  "Owner": "mzadmin",
+  "Is Valid": true,
+  "Access Groups -read -write -execute": [
+    "Administrator",
+    "Administrator",
+    "Administrator"
+  ],
+  "Data": {
+    "Version": 0,
+    "Root directory": "/home/mzadmin/data/iwf",
+    "Published MIMs": [
+      "Filename",
+      "EventCount"
+    ],
+    "Max number of bytes": 0,
+    "Max number of batches": 0,
+    "Compressed": false,
+    "Storage Type": "File Storage",
+    "ExtRef Version": 1.0,
+    "ExtRef Profile": "",
+    "ExtRef Map": [],
+    "$Type": "dr.StorageAreaData",
+    "$Version": 7.0
+  },
+  "documentation": "",
+  "Is Dry Run": false,
+  "$Type": "dr.Configuration",
+  "$Version": 10.1,
+  "Comment": "Imported from /media/sf_vmShared/SAP_Template_2022-03-09.zip"
+}

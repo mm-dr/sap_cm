@@ -1,0 +1,116 @@
+{
+  "Key": "MZ1639391294306",
+  "Name": "PRF_Audit",
+  "Type": "Audit Profile",
+  "Version": 1,
+  "Folder": "SAP_T1A",
+  "Owner": "mzadmin",
+  "Is Valid": true,
+  "Access Groups -read -write -execute": [
+    "Administrator",
+    "Administrator",
+    "Administrator"
+  ],
+  "Data": {
+    "Database": {
+      "folder": "SAP_T1A",
+      "key": "MZ1639388135866",
+      "name": "PRF_Database",
+      "type": "Database Profile",
+      "$Version": 1.0
+    },
+    "Tables": [
+      {
+        "Table name": "public.audit_coll",
+        "Columns": [
+          {
+            "Column name": "aggregated_events",
+            "Column type": 3,
+            "Key index": 0,
+            "Data type": 4,
+            "$Version": 1.0
+          },
+          {
+            "Column name": "duplicate_events",
+            "Column type": 4,
+            "Key index": 0,
+            "Data type": 4,
+            "$Version": 1.0
+          },
+          {
+            "Column name": "filename",
+            "Column type": 4,
+            "Key index": 0,
+            "Data type": 1,
+            "$Version": 1.0
+          },
+          {
+            "Column name": "filtered_events",
+            "Column type": 3,
+            "Key index": 0,
+            "Data type": 4,
+            "$Version": 1.0
+          },
+          {
+            "Column name": "input_events",
+            "Column type": 3,
+            "Key index": 0,
+            "Data type": 4,
+            "$Version": 1.0
+          },
+          {
+            "Column name": "invalid_events",
+            "Column type": 3,
+            "Key index": 0,
+            "Data type": 4,
+            "$Version": 1.0
+          },
+          {
+            "Column name": "output_events",
+            "Column type": 3,
+            "Key index": 0,
+            "Data type": 4,
+            "$Version": 1.0
+          },
+          {
+            "Column name": "processing_time",
+            "Column type": 4,
+            "Key index": 0,
+            "Data type": 91,
+            "$Version": 1.0
+          },
+          {
+            "Column name": "split_events",
+            "Column type": 3,
+            "Key index": 0,
+            "Data type": 4,
+            "$Version": 1.0
+          },
+          {
+            "Column name": "txn_id",
+            "Column type": 5,
+            "Key index": 0,
+            "Data type": 2,
+            "$Version": 1.0
+          },
+          {
+            "Column name": "workflow_name",
+            "Column type": 4,
+            "Key index": 0,
+            "Data type": 1,
+            "$Version": 1.0
+          }
+        ],
+        "$Version": 1.0
+      }
+    ],
+    "useSchemaFromDB": false,
+    "$Type": "dr.AuditProfileData",
+    "$Version": 2.2
+  },
+  "documentation": "",
+  "Is Dry Run": false,
+  "$Type": "dr.Configuration",
+  "$Version": 10.1,
+  "Comment": "Imported from /media/sf_vmShared/SAP_Template_2022-03-09.zip"
+}

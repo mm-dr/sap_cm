@@ -1,0 +1,17 @@
+Export started at 2024-12-16 09:17:07
+Output target is (sap_cm / main) /mz/first
+--------------------------------------------------
+[Configuration/SAP_T1A/Audit Profile] - Exporting SAP_T1A.PRF_Audit
+--------------------------------------------------
+[Configuration/SAP_T1A/Database Profile] - Exporting SAP_T1A.PRF_Database
+--------------------------------------------------
+[Configuration/SAP_T1A/Duplicate UDR Profile] - Exporting SAP_T1A.PRF_Duplicate_Detection
+--------------------------------------------------
+[Configuration/SAP_T1A/Inter Workflow Profile] - Exporting SAP_T1A.PRF_Interworkflow
+--------------------------------------------------
+[Configuration/SAP_T1A/Ultra Format] - Exporting SAP_T1A.UFL_Formats
+--------------------------------------------------
+[Configuration/SAP_T1A/Workflow] - Exporting SAP_T1A.WFL_Collection
+[Configuration/SAP_T1A/Workflow] - Exporting SAP_T1A.WFL_SAPCC
+--------------------------------------------------
+Export finished at 2024-12-16 09:17:07

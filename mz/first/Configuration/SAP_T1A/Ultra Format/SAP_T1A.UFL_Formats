@@ -1,0 +1,47 @@
+{
+  "Key": "MZ1639127489728",
+  "Name": "UFL_Formats",
+  "Type": "Ultra Format",
+  "Version": 1,
+  "Folder": "SAP_T1A",
+  "Owner": "mzadmin",
+  "Is Valid": true,
+  "Access Groups -read -write -execute": [
+    "Administrator",
+    "Administrator",
+    "Administrator"
+  ],
+  "Data": {
+    "Definition": "/*
+ * Decoder example - Comma Separated Value
+ */
+
+
+external csvLine {
+    // ----> BEGIN MODIFIABLE SECTION - sample below, adapt to your format:
+
+    ascii calling_party     : terminated_by( \",\" );
+    ascii called_party      : terminated_by( \",\" );
+    ascii seqNum            : long(base10), terminated_by( \",\" );
+    ascii start_date        : terminated_by( \",\" );
+    ascii end_date          : terminated_by( \",\" );
+    ascii duration          : long(base10), terminated_by( \",\" );
+    ascii service_id        : terminated_by( \",\" );
+    ascii user_id           : terminated_by( \",\" );
+    ascii consumption_date  : terminated_by( 0xA );
+
+    // ----> END MODIFIABLE SECTION
+};
+in_map csvLine_inMap : external( csvLine ), target_internal( csvCDR ) { automatic; };
+decoder csvFile : in_map( csvLine_inMap );
+
+",
+    "$Type": "dr.UltraFormatConfig",
+    "$Version": 2.0
+  },
+  "documentation": "",
+  "Is Dry Run": false,
+  "$Type": "dr.Configuration",
+  "$Version": 10.1,
+  "Comment": "Imported from /media/sf_vmShared/SAP_Template_2022-03-09.zip"
+}

@@ -1,0 +1,45 @@
+{
+  "Key": "MZ1639472252492",
+  "Name": "PRF_Duplicate_Detection",
+  "Type": "Duplicate UDR Profile",
+  "Version": 1,
+  "Folder": "SAP_T1A",
+  "Owner": "mzadmin",
+  "Is Valid": true,
+  "Access Groups -read -write -execute": [
+    "Administrator",
+    "Administrator",
+    "Administrator"
+  ],
+  "Data": {
+    "Base path": "/home/mzadmin/data/dup",
+    "Cache max age": 30,
+    "Cache max size": 5000,
+    "UDR type": {
+      "TypeName": "SAP_T1A.UFL_Formats.csvCDR",
+      "FormatName": "SAP_T1A.UFL_Formats",
+      "$Type": "dr.UltraClientInfo",
+      "$Version": 1.0
+    },
+    "Indexing field": "seqNum",
+    "Checked fields": [
+      "called_party",
+      "calling_party",
+      "consumption_date"
+    ],
+    "Date Index": false,
+    "useCacheTime": false,
+    "instanceUniqueStorage": false,
+    "EXT_REF_VERSION": 0.1,
+    "ExtRef Version": 1.0,
+    "ExtRef Profile": "",
+    "ExtRef Map": [],
+    "$Type": "dr.DupUDR2ProfileConfigExtRef",
+    "$Version": 5.0
+  },
+  "documentation": "",
+  "Is Dry Run": false,
+  "$Type": "dr.Configuration",
+  "$Version": 10.1,
+  "Comment": "Imported from /media/sf_vmShared/SAP_Template_2022-03-09.zip"
+}

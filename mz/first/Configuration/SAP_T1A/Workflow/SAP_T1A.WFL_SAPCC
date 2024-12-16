@@ -1,0 +1,363 @@
+{
+  "Key": "MZ1639141907246",
+  "Name": "WFL_SAPCC",
+  "Type": "Workflow",
+  "Version": 1,
+  "Folder": "SAP_T1A",
+  "Owner": "mzadmin",
+  "Is Valid": true,
+  "Access Groups -read -write -execute": [
+    "Administrator",
+    "Administrator",
+    "Administrator"
+  ],
+  "Auxiliary Data": {
+    "Entries": [
+      {
+        "Key": "Type",
+        "Value": "Realtime"
+      },
+      {
+        "Key": "Standalone",
+        "Value": "false"
+      },
+      {
+        "Key": "Count",
+        "Value": "1"
+      },
+      {
+        "Key": "Autostart",
+        "Value": "false"
+      },
+      {
+        "Key": "DynamicConfig",
+        "Value": "false"
+      }
+    ],
+    "$Version": 2.0
+  },
+  "Data": {
+    "dynamicInstances": false,
+    "errorMimNames": [],
+    "fieldTypes": [],
+    "instances": [
+      {
+        "cellValues": [],
+        "instanceId": 1,
+        "instanceName": "To_SAP_CC",
+        "validType": "Valid",
+        "$Version": 1.0
+      }
+    ],
+    "nodes": [
+      {
+        "Name": "Wrapper",
+        "ID": -5,
+        "Classname": "com.digitalroute.wfc.analysis.AnalysisRealtimeInsp",
+        "Configuration": [
+          {
+            "Type": 1,
+            "Classname": "com.digitalroute.wfc.analysis.AnalysisRealtimeInsp",
+            "Data": {
+              "sourceCode": "import ultra.sapcc;
+
+long incoming_cits=0;
+
+consume {
+    if (instanceOf(input, CCCycleUDR)) {
+        udrRoute((CCCycleUDR)input);
+    }else if(instanceOf(input,NewFileUDR)){
+        reset_cit_count();
+    }
+}
+
+synchronized void reset_cit_count(){
+    incoming_cits=0;    
+}",
+              "udrTypes": [
+                {
+                  "typeName": "sapcc.CCCycleUDR",
+                  "$Version": 1.0
+                },
+                {
+                  "typeName": "InterWorkflow.NewFileUDR",
+                  "$Version": 1.0
+                }
+              ],
+              "$Type": "dr.StuffyMapperData",
+              "$Version": 10.0
+            },
+            "$Version": 1.0
+          }
+        ],
+        "XYposition": {
+          "x": 240,
+          "y": 170,
+          "$Version": 1.0
+        },
+        "$Version": 2.0
+      },
+      {
+        "Name": "Debug",
+        "ID": -9,
+        "Classname": "com.digitalroute.wfc.analysis.AnalysisRealtimeInsp",
+        "Configuration": [
+          {
+            "Type": 1,
+            "Classname": "com.digitalroute.wfc.analysis.AnalysisRealtimeInsp",
+            "Data": {
+              "sourceCode": "long cit_response_count, cit_fail_count, cit_success_count;
+
+consume {
+    cit_response_count_incr(0);
+    long total_cit_count = (long)mimGet(\"Inter_Workflow\", \"cccUDR UDRs\");
+    string filename = (string)mimGet(\"Inter_Workflow\", \"Filename\");
+    string workflow_name = (string)mimGet(\"Workflow\", \"Workflow Name\");
+    string timestamp = (string)dateCreateNow();
+    
+    if(total_cit_count <= cit_response_count){
+        // add audit sqlExec int sqlExec (  string dbProfile,  string sqlQuery )
+       
+        // sqlExec(\"SAP_T1A.PRF_Database\",\"Insert into public.audit.coll 
+        //         ( filename, workflow_name, input_events, output_events, invalid_events,
+ \t    //           aggregated_events, filtered_events, split_events, duplicate_events,
+\t    //           processing_time, txn_id)
+        //         VALUES (\"'\" + filename + \"'\", \"'\" + workflow_name + \"'\", cit_response_count, 
+        //                 cit_success_count, cit_fail_count, 0, 0, 0, 0, timestamp, -1);
+        reset_counts();
+    }
+    debug(input);
+}
+
+synchronized void cit_response_count_incr(int i){
+    if(i==0) cit_response_count++;
+    if(i==1) cit_fail_count++;
+    if(i==2) cit_success_count++;   
+}
+
+synchronized void reset_counts(){
+    cit_response_count = 0;
+    cit_fail_count = 0;
+    cit_success_count = 0;   
+}",
+              "udrTypes": [
+                {
+                  "typeName": "sapcc.CCCycleUDR",
+                  "$Version": 1.0
+                }
+              ],
+              "$Type": "dr.StuffyMapperData",
+              "$Version": 10.0
+            },
+            "$Version": 1.0
+          }
+        ],
+        "XYposition": {
+          "x": 550,
+          "y": 170,
+          "$Version": 1.0
+        },
+        "$Version": 2.0
+      },
+      {
+        "Name": "SAP_CC",
+        "ID": -10,
+        "Classname": "com.digitalroute.mediationZoneIntegration.agent.online.SAPCCOnlineProcessorInsp",
+        "Configuration": [
+          {
+            "Type": 1,
+            "Classname": "com.digitalroute.mediationZoneIntegration.agent.online.SAPCCOnlineProcessorInsp",
+            "Data": {
+              "apiAuthentication": false,
+              "convertStr": true,
+              "enableDebug": false,
+              "enableGlobalEvent": false,
+              "enableRARListener": false,
+              "enableSecuredConnection": false,
+              "enableSpendingStatusMonitoring": false,
+              "enableSpotEvent": false,
+              "expectedAvgLatency": 1,
+              "flowControlEnabled": false,
+              "frequency": 1000,
+              "hosts": "abcdefghijkl:2000",
+              "keystorePassword": "DR-4-017BB0B8FB061C1876D43DD75468AA40",
+              "keystorePath": "",
+              "latencyControllerEnable": false,
+              "password": "DR-4-017BB0B8FB061C1876D43DD75468AA40",
+              "port": 0,
+              "queueSize": 1,
+              "queueSizeToNotify": 1,
+              "rARListenerId": 0,
+              "sessionCleanupTransactionSetToReturn": "noTransaction",
+              "sessionResolution": "cancel",
+              "sessionTTL": 300,
+              "spendingStatusMonitoringDefaultListenerId": 1,
+              "spendingStatusMonitoringListenerId": 1,
+              "spendingStatusMonitoringSessionDefaultTTL": 86400,
+              "timeout": 3000,
+              "transactionSetToReturn": "noTransaction",
+              "username": "",
+              "$Type": "com.digitalroute.mediationZoneIntegration.agent.online.VersionSafeSAPCCOnlineProcessorConfig",
+              "$Version": 10.0
+            },
+            "$Version": 1.0
+          }
+        ],
+        "XYposition": {
+          "x": 390,
+          "y": 170,
+          "$Version": 1.0
+        },
+        "$Version": 2.0
+      },
+      {
+        "Name": "Inter_Workflow",
+        "ID": -2024313060,
+        "Classname": "com.digitalroute.wfc.interwf.InterWFInputRTInsp",
+        "Configuration": [
+          {
+            "Type": 1,
+            "Classname": "com.digitalroute.wfc.interwf.InterWFInputRTInsp",
+            "Data": {
+              "myProfile": {
+                "folder": "SAP_TEMPL",
+                "key": "MZ1639127987769",
+                "name": "IWF_Profile",
+                "type": "Inter Workflow Profile",
+                "$Version": 1.0
+              },
+              "streamId": "default",
+              "$Type": "dr.InterWFInputRTData",
+              "$Version": 3.0
+            },
+            "$Version": 1.0
+          },
+          {
+            "Type": 0,
+            "Classname": "com.digitalroute.wfc.ultra.server.service.RealtimeDecoderInsp",
+            "Data": {
+              "decoderConfig": {
+                "outputTypes": [
+                  {
+                    "typeName": "sapcc.CCCycleUDR",
+                    "$Version": 1.0
+                  }
+                ],
+                "$Type": "dr.MZTaggedDecoderConfig",
+                "$Version": 1.0
+              },
+              "decoderName": "MZ format tagged UDRs",
+              "doFullDecode": false,
+              "$Type": "dr.RealtimeDecoderConfig",
+              "$Version": 11.0
+            },
+            "$Version": 1.0
+          }
+        ],
+        "XYposition": {
+          "x": 80,
+          "y": 170,
+          "$Version": 1.0
+        },
+        "$Version": 2.0
+      }
+    ],
+    "persistentData": {
+      "$Version": 10.0
+    },
+    "routes": [
+      {
+        "destinationId": -9,
+        "id": -11,
+        "name": "ccResponse",
+        "realtimeMode": "Not set",
+        "routeStyle": "Straight",
+        "sourceId": -10,
+        "stroke": [
+          {
+            "x": 417,
+            "y": 163,
+            "$Version": 1.0
+          },
+          {
+            "x": 524,
+            "y": 163,
+            "$Version": 1.0
+          }
+        ],
+        "$Version": 1.0
+      },
+      {
+        "destinationId": -5,
+        "id": -13,
+        "name": "cccUDR",
+        "realtimeMode": "Not set",
+        "routeStyle": "Straight",
+        "sourceId": -2024313060,
+        "stroke": [
+          {
+            "x": 107,
+            "y": 163,
+            "$Version": 1.0
+          },
+          {
+            "x": 214,
+            "y": 163,
+            "$Version": 1.0
+          }
+        ],
+        "$Version": 1.0
+      },
+      {
+        "destinationId": -10,
+        "id": -14,
+        "name": "cccUDR",
+        "realtimeMode": "Not set",
+        "routeStyle": "Straight",
+        "sourceId": -5,
+        "stroke": [
+          {
+            "x": 267,
+            "y": 163,
+            "$Version": 1.0
+          },
+          {
+            "x": 364,
+            "y": 163,
+            "$Version": 1.0
+          }
+        ],
+        "$Version": 1.0
+      }
+    ],
+    "services": [],
+    "templateValid": true,
+    "threadData": {
+      "countInterval": 1,
+      "queueSize": 1000,
+      "standalone": false,
+      "threads": 8,
+      "$Version": 10.0
+    },
+    "wfExecutionConfig": {
+      "debugType": "Event",
+      "executionSettings": {
+        "distributionType": "Round Robin",
+        "enabled": false,
+        "executionGroups": [],
+        "$Version": 1.0
+      },
+      "noOfFilesToKeep": 0,
+      "txnHandler": "Default Handler",
+      "$Version": 10.0
+    },
+    "wfIdCounter": 1,
+    "$Type": "dr.WorkflowRealtimeData",
+    "$Version": 1.0
+  },
+  "documentation": "",
+  "Is Dry Run": false,
+  "$Type": "dr.Configuration",
+  "$Version": 10.1,
+  "Comment": "Imported from /media/sf_vmShared/SAP_Template_2022-03-09.zip"
+}
